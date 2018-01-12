@@ -122,9 +122,14 @@ class Battle extends React.Component{
             <PlayerPreview
               avatar={playerOneImage}
               username={playerOneName}
-              id='playerOne'
-              onReset={this.handleReset}
-            />
+            >
+              <button
+                className='reset'
+                onClick={this.handleReset.bind(null, 'playerOne')}
+              >
+                Reset
+              </button>
+            </PlayerPreview>
           }
 
           {!playerTwoName &&
@@ -139,9 +144,14 @@ class Battle extends React.Component{
             <PlayerPreview
               avatar={playerTwoImage}
               username={playerTwoName}
-              id='playerOTwo'
-              onReset={this.handleReset}
-            />
+            >
+              <button
+                className='reset'
+                onClick={this.handleReset.bind(null, 'playerTwo')}
+              >
+                Reset
+              </button>
+            </PlayerPreview>
           }
 
 
