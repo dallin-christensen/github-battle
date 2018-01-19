@@ -8,7 +8,7 @@ var styles = {
   }
 };
 
-
+//Simple loading component, used during the wait time of any ajax calls. (Battle & Popular)
 class Loading extends React.Component{
   constructor(props){
     super(props);

@@ -1,3 +1,5 @@
+//Results, Player, Profile
+
 var React = require('react');
 var PropTypes = require('prop-types');
 var queryString = require('query-string');
@@ -7,6 +9,7 @@ var PlayerPreview = require('./PlayerPreview');
 var Loading = require('./Loading');
 
 
+//Stateless Functional. Renders PlayerPreview component as well as statistics view for the Player component.
 function Profile(props){
   var info = props.info;
   return(
@@ -28,6 +31,7 @@ Profile.propTypes = {
   info: PropTypes.object.isRequired
 }
 
+//stateless functional. Player nicely places together the specific profile component with corresponding "winner", "loser", and scores.
 function Player(props){
   return(
     <div>
@@ -44,6 +48,9 @@ Player.propTypes = {
   profile: PropTypes.object.isRequired
 }
 
+
+//Results, after component mounts and data is fetched from github, sets state to player data.
+//on set state, if no errors, displays the player components passing results though props.
 class Results extends React.Component{
   constructor(props){
     super(props);
@@ -63,7 +70,6 @@ class Results extends React.Component{
       players.playerOneName,
       players.playerTwoName
     ]).then(function(results){
-      console.log(results);
       if(results === null){
         return this.setState(function(){
           return {

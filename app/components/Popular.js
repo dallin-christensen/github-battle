@@ -1,8 +1,10 @@
+//three components, SelectLanguage, RepoGrid, and Popular (parent)
 var React = require('react');
 var PropTypes = require('prop-types');
 var api = require('../utils/api');
 var Loading = require('./Loading');
 
+//stateless functional component, allows user to select which language they want to request from the github api.
 function SelectLanguage(props){
   var languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
 
@@ -22,7 +24,7 @@ function SelectLanguage(props){
   )
 }
 
-
+//stateless functional component. Repogrid takes the results recieved from github api, and renders our nice organized display for the app user.
 function RepoGrid(props){
 
   return (
@@ -63,7 +65,10 @@ SelectLanguage.propTypes = {
   onSelect: PropTypes.func.isRequired
 }
 
-
+//Popular is the parent of SelectLanguage and RepoGrid, the only two UI that display within this page.
+//What Repos load corresponds to what the selectedLanguage state is. Initially set to "ALL"
+//on mount, we fetch the "All" popular repos from github. RepoGrid displays top Repos.
+//SelectLanguage allows the selectedLanguage state to be changed, and fetches repos accordingly.
 class Popular extends React.Component{
   constructor(props){
     super(props);

@@ -9,7 +9,7 @@ var Home = require('./Home');
 var Battle = require('./Battle');
 var Results = require('./Results');
 
-
+//this is the main component, all other components within this single page app are rendered from here.
 class App extends React.Component {
   render(){
     return(

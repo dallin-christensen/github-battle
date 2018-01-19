@@ -1,7 +1,7 @@
 var React = require('react');
 var Link = require('react-router-dom').Link;
 
-
+//simple, dynamically rendered home page routed with react router. Links to Battle page. Stateless.
 class Home extends React.Component{
   render(){
     return(

@@ -1,9 +1,12 @@
+//this file holds two components, Battle and PlayerInput.
 var React = require('react');
 var PropTypes = require('prop-types');
 var Link = require('react-router-dom').Link;
 var PlayerPreview = require('./PlayerPreview');
 
 
+//PlayerInput takes user set github handles. The state updates onchange, then outputs it to the UI.
+//When user hits submit, the battle component (parent) renders the PlayerPreview component in it's place.
 class PlayerInput extends React.Component{
   constructor(props){
     super(props);
@@ -63,6 +66,11 @@ PlayerInput.propTypes = {
   onSubmit: PropTypes.func.isRequired
 }
 
+
+//The battle component manages the PlayerInput and PlayerPreview components.
+//state's are initially set to null, when player states get updated by the PlayerInput components, it will display the PlayerPreview component.
+//When both PlayerPreview's have valid github handles, places battle button in UI
+//Battle button calls a function, giving parameters through the url, that requests data from github API.
 class Battle extends React.Component{
   constructor(props){
     super(props);
