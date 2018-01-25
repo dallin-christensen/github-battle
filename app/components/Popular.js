@@ -1,8 +1,8 @@
 //three components, SelectLanguage, RepoGrid, and Popular (parent)
-const React = require('react');
-const PropTypes = require('prop-types');
-const api = require('../utils/api');
-const Loading = require('./Loading');
+import React from 'react';
+import PropTypes from 'prop-types';
+import { fetchPopularRepos } from '../utils/api';
+import Loading from './Loading';
 
 //stateless functional component, allows user to select which language they want to request from the github api.
 function SelectLanguage({ selectedLanguage, onSelect }){
@@ -68,24 +68,20 @@ SelectLanguage.propTypes = {
 //on mount, we fetch the "All" popular repos from github. RepoGrid displays top Repos.
 //SelectLanguage allows the selectedLanguage state to be changed, and fetches repos accordingly.
 class Popular extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      selectedLanguage: 'All',
-      repos: null
-    };
 
-    this.updateLanguage = this.updateLanguage.bind(this);
+  state = {
+    selectedLanguage: 'All',
+    repos: null
   }
 
   componentDidMount(){
     this.updateLanguage(this.state.selectedLanguage);
   }
 
-  updateLanguage(lang){
+  updateLanguage = (lang) => {
     this.setState(() => ({ selectedLanguage: lang, repos: null }) );
 
-    api.fetchPopularRepos(lang)
+    fetchPopularRepos(lang)
       .then((repos) => {
         this.setState(() => ({ repos }));
       });
@@ -109,4 +105,4 @@ class Popular extends React.Component{
 }
 
 
-module.exports = Popular;
+export default Popular;

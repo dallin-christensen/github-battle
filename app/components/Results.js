@@ -1,12 +1,12 @@
 //Results, Player, Profile
 
-const React = require('react');
-const PropTypes = require('prop-types');
-const queryString = require('query-string');
-const api = require('../utils/api');
-const Link = require('react-router-dom').Link;
-const PlayerPreview = require('./PlayerPreview');
-const Loading = require('./Loading');
+import React from 'react';
+import PropTypes from 'prop-types';
+import queryString from 'query-string';
+import { Battle } from '../utils/api';
+import { Link } from 'react-router-dom';
+import PlayerPreview from './PlayerPreview';
+import Loading from './Loading';
 
 
 //Stateless Functional. Renders PlayerPreview component as well as statistics view for the Player component.
@@ -53,21 +53,19 @@ Player.propTypes = {
 //Results, after component mounts and data is fetched from github, sets state to player data.
 //on set state, if no errors, displays the player components passing results though props.
 class Results extends React.Component{
-  constructor(props){
-    super(props);
 
-    this.state = {
-      winner: null,
-      loser: null,
-      error: null,
-      loading: true
-    }
+  state = {
+    winner: null,
+    loser: null,
+    error: null,
+    loading: true
   }
+  
 
   componentDidMount(){
     const { playerOneName, playerTwoName } = queryString.parse(this.props.location.search);
 
-    api.battle([
+    battle([
       playerOneName,
       playerTwoName
     ]).then((results) => {
@@ -121,4 +119,4 @@ class Results extends React.Component{
   }
 }
 
-module.exports = Results;
+export default Results;

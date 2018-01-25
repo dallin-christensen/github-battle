@@ -1,5 +1,5 @@
-const React = require('react');
-const PropTypes = require('prop-types');
+ import React from 'react';
+ import PropTypes from 'prop-types';
 
 const styles = {
   content: {
@@ -10,12 +10,19 @@ const styles = {
 
 //Simple loading component, used during the wait time of any ajax calls. (Battle & Popular)
 class Loading extends React.Component{
-  constructor(props){
-    super(props);
 
-    this.state = {
-      text: props.text
-    };
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    speed: PropTypes.number.isRequired,
+  }
+
+  static defaultProps = {
+    text: 'Loading',
+    speed: 300
+  }
+
+  state = {
+    text: this.props.text
   }
 
   componentDidMount(){
@@ -45,14 +52,6 @@ class Loading extends React.Component{
   }
 }
 
-Loading.propTypes = {
-  text: PropTypes.string.isRequired,
-  speed: PropTypes.number.isRequired,
-};
 
-Loading.defaultProps = {
-  text: 'Loading',
-  speed: 300
-};
 
-module.exports = Loading;
+export default Loading;

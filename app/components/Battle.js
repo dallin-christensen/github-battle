@@ -1,31 +1,34 @@
 //this file holds two components, Battle and PlayerInput.
-const React = require('react');
-const PropTypes = require('prop-types');
-const Link = require('react-router-dom').Link;
-const PlayerPreview = require('./PlayerPreview');
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import PlayerPreview from './PlayerPreview';
 
 
 //PlayerInput takes user set github handles. The state updates onchange, then outputs it to the UI.
 //When user hits submit, the battle component (parent) renders the PlayerPreview component in it's place.
 class PlayerInput extends React.Component{
-  constructor(props){
-    super(props);
-
-    this.state = {
-      username : ""
-    }
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    onSubmit: PropTypes.func.isRequired
   }
 
-  handleChange(event){
+  static defaultProps = {
+    label: 'Username',
+  }
+
+  state = {
+    username : ''
+  }
+
+  handleChange = (event) => {
     const value = event.target.value;
 
     this.setState(() => ({username: value}))
   }
 
-  handleSubmit(event){
+  handleSubmit = (event) => {
     event.preventDefault();
 
     this.props.onSubmit(this.props.id, this.state.username);
@@ -59,40 +62,28 @@ class PlayerInput extends React.Component{
   }
 }
 
-PlayerInput.propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired
-}
-
 
 //The battle component manages the PlayerInput and PlayerPreview components.
 //state's are initially set to null, when player states get updated by the PlayerInput components, it will display the PlayerPreview component.
 //When both PlayerPreview's have valid github handles, places battle button in UI
 //Battle button calls a function, giving parameters through the url, that requests data from github API.
 class Battle extends React.Component{
-  constructor(props){
-    super(props);
 
-    this.state = {
-      playerOneName : "",
-      playerTwoName : "",
-      playerOneImage : null,
-      playerTwoImage : null
-    }
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleReset = this.handleReset.bind(this);
+  state = {
+    playerOneName : "",
+    playerTwoName : "",
+    playerOneImage : null,
+    playerTwoImage : null
   }
 
-  handleSubmit(id, username){
+  handleSubmit = (id, username) => {
     this.setState(() => ({
         [id+"Name"] : username,
         [id+"Image"] : `https://github.com/${username}.png?size=200`
       }));
   }
 
-  handleReset(id){
+  handleReset = (id) => {
     this.setState(() => {
       return {
         [id+"Name"] : "",
@@ -171,5 +162,4 @@ class Battle extends React.Component{
   }
 }
 
-
-module.exports = Battle;
+export default Battle;
